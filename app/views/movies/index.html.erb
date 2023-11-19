@@ -1,0 +1,45 @@
+<!-- app/views/movies/index.html.erb -->
+<div class="bg-gray-100">
+  <div class="container mx-auto py-8 px-4">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-12">Movies History</h1>
+    <%= render 'search_form' %>
+    
+    <% if @movies.any? %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
+        <% @movies.each do |movie| %>
+          <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-300">
+            <div class="flex flex-col md:flex-row md:max-w-xl">
+              <% if movie.poster.present? %>
+                <div class="md:w-1/2">
+                  <img src="<%= movie.poster %>" alt="<%= movie.title %> Poster" class="w-full h-auto object-cover">
+                </div>
+              <% end %>
+              <div class="md:w-1/2 p-4 md:pl-8">
+                <h2 class="text-xl font-bold mb-2" style="color: #4a90e2;"><%= movie.title %> (<%= movie.year %>)</h2>
+                <p class="text-gray-600 mb-1"><strong>Rated:</strong> <%= movie.rated %></p>
+                <p class="text-gray-600 mb-1"><strong>Director:</strong> <%= movie.director %></p>
+                <p class="text-gray-600 mb-1"><strong>Stars:</strong> <%= movie.actors %></p>
+                <p class="text-gray-600 mb-1"><strong>Released:</strong> <%= movie.released %></p>
+                <p class="text-gray-600 mb-1"><strong>Runtime:</strong> <%= movie.runtime %></p>
+                <p class="text-gray-600 mb-1"><strong>Genre:</strong> <%= movie.genre %></p>
+                <p class="text-gray-600 mb-1"><strong>Language:</strong> <%= movie.language %></p>
+                <p class="text-gray-600 mb-1"><strong>Country:</strong> <%= movie.country %></p>
+                <p class="text-gray-600 mb-1"><strong>Awards:</strong> <%= movie.awards %></p>
+                <p class="text-gray-600 mb-1"><strong>Writer:</strong> <%= movie.writer %></p>
+                <p class="text-gray-600 mb-1"><strong>Actors:</strong> <%= movie.actors %></p>
+              </div>
+            </div>
+            <% if user_signed_in? %>
+            <%= form_with(url: add_to_favorites_movie_path(id: movie.imdb_id), method: :post, local: true, html: {class: "p-6"}) do |form| %>
+              <%= form.submit "Add to Favorites", class: "block w-full px-4 py-2 font-medium tracking-wide text-center text-white capitalize transition-colors duration-300 transform bg-teal-400 rounded-md hover:bg-teal-500 focus:outline-none focus:ring focus:ring-teal-300 focus:ring-opacity-80" %>
+            <% end %>
+          <% else %>
+            <p>Please sign in to add this movie to your favorites.</p>
+          <% end %>
+          </div>
+
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

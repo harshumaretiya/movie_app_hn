@@ -1,0 +1,60 @@
+
+<!-- app/views/favorites/index.html.erb -->
+<div class="bg-gray-100">
+  <div class="container mx-auto py-8 px-4">
+    <h1 class="text-3xl font-bold text-center text-gray-800 mb-12">Favorite Movies</h1>
+    
+    <% if @favorites.any? %>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-2 gap-5">
+        <% @favorites.each do |movie| %>
+          <div class="bg-white rounded-lg overflow-hidden shadow-md border border-gray-300">
+            <div class="flex flex-col md:flex-row md:max-w-xl">
+              <% if movie.poster.present? %>
+                <div class="md:w-1/2">
+                  <img src="<%= movie.poster %>" alt="<%= movie.title %> Poster" class="w-full h-auto object-cover">
+                </div>
+              <% end %>
+              <div class="md:w-1/2 p-4 md:pl-8"> <!-- Increased left padding on medium screens -->
+                <h2 class="text-xl font-bold mb-2" style="color: #4a90e2;"><%= movie.title %> (<%= movie.year %>)</h2> <!-- Custom color for the title -->
+                <p class="text-gray-600 mb-1"><strong>Rated:</strong> <%= movie.rated %></p>
+                <p class="text-gray-600 mb-1"><strong>Director:</strong> <%= movie.director %></p>
+                <p class="text-gray-600 mb-1"><strong>Stars:</strong> <%= movie.actors %></p>
+                <p class="text-gray-600 mb-1"><strong>Released:</strong> <%= movie.released %></p>
+                <p class="text-gray-600 mb-1"><strong>Runtime:</strong> <%= movie.runtime %></p>
+                <p class="text-gray-600 mb-1"><strong>Genre:</strong> <%= movie.genre %></p>
+                <p class="text-gray-600 mb-1"><strong>Language:</strong> <%= movie.language %></p>
+                <p class="text-gray-600 mb-1"><strong>Country:</strong> <%= movie.country %></p>
+                <p class="text-gray-600 mb-1"><strong>Awards:</strong> <%= movie.awards %></p>
+                <p class="text-gray-600 mb-1"><strong>Writer:</strong> <%= movie.writer %></p>
+                <p class="text-gray-600 mb-1"><strong>Actors:</strong> <%= movie.actors %></p>
+              </div>
+            </div>
+            
+            <div class="px-4 py-3 bg-gray-50 text-right">
+              <%= link_to "Remove from Favorites", remove_from_favorites_favorite_path(movie), method: :delete, class: "block w-full px-4 py-2 font-medium tracking-wide text-center text-white capitalize transition-colors duration-300 transform bg-red-400 rounded-md hover:bg-red-500 focus:outline-none focus:ring focus:ring-red-300 focus:ring-opacity-80" %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    <% else %>
+    <p class="hidden text-center text-gray-600">No movies found for your search query.</p>
+    <div class="grid min-h-[140px] w-full place-items-center overflow-x-scroll rounded-lg p-6 lg:overflow-visible">
+    <div role="alert" class="relative block w-full text-base font-regular px-4 py-4 rounded-lg bg-red-500 text-white flex">
+      <div class="mr-12">
+        <p class="font-bold">
+          No movies found for your search query.
+        </p>
+        <p>
+          Please try again with different keywords.
+        </p>
+      </div>
+      <button onclick="this.parentElement.remove()" class="relative align-middle select-none font-sans font-medium text-center uppercase transition-all disabled:opacity-50 disabled:shadow-none disabled:pointer-events-none w-8 max-w-[32px] h-8 max-h-[32px] rounded-lg text-xs text-white hover:bg-white/10 active:bg-white/30 !absolute top-3 right-3" type="button">
+        <span class="absolute top-1/2 left-1/2 transform -translate-y-1/2 -translate-x-1/2">
+          <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="h-6 w-6" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12"></path></svg>
+        </span>
+      </button>
+    </div>
+  </div>
+    <% end %>
+  </div>
+</div>

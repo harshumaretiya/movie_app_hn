@@ -1,0 +1,20 @@
+<!-- app/views/movies/show.html.erb -->
+<h2><%= @movie["Title"] %></h2>
+<p>Year: <%= @movie["Year"] %></p>
+<p>Rated: <%= @movie["Rated"] %></p>
+<p>Released: <%= @movie["Released"] %></p>
+<p>Runtime: <%= @movie["Runtime"] %></p>
+<p>Genre: <%= @movie["Genre"] %></p>
+<p>Director: <%= @movie["Director"] %></p>
+<p>Writer: <%= @movie["Writer"] %></p>
+<p>Actors: <%= @movie["Actors"] %></p>
+<p>Plot: <%= @movie["Plot"] %></p>
+<p>Language: <%= @movie["Language"] %></p>
+<p>Country: <%= @movie["Country"] %></p>
+<p>Awards: <%= @movie["Awards"] %></p>
+<img src="<%= @movie["Poster"] %>" alt="<%= @movie["Title"] %> Poster">
+<% if user_signed_in? %>
+  <%= link_to "Add to Favorites", add_to_favorites_movie_path(id: @movie["imdbID"]), method: :post %>
+<% else %>
+  <p>Please sign in to add this movie to your favorites.</p>
+<% end %>

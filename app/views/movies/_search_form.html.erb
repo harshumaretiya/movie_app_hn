@@ -1,0 +1,26 @@
+<!-- component -->
+<div class="flex justify-center mx-auto p-6">
+  <%= form_with(url: search_movies_path, method: :get, class: "border border-gray-300 p-6 grid grid-cols-1 gap-6 bg-white shadow-lg rounded-lg") do |form| %>
+    <div class="flex flex-col md:flex-row">
+      <div class="mb-4 md:mb-0 md:flex-1 md:mr-4">
+        <%= form.label :query, "Search Movies", class: "block text-sm font-bold mb-2" %>
+        <%= form.text_field :query, value: @query, class: "border p-2 rounded w-full", placeholder: "Enter Movie Title..." %>
+      </div>
+      <div class="mb-4 md:mb-0 md:flex-1 md:mr-4">
+        <%= form.label :type, "Type", class: "block text-sm font-bold mb-2" %>
+        <%= form.select :type, options_for_select([['Movie', 'movie'], ['Series', 'series'], ['Episode', 'episode']], selected: @type), { include_blank: 'All Types' }, class: "border p-2 rounded w-full" %>
+      </div>
+      <div class="mb-4 md:mb-0 md:flex-1">
+        <%= form.label :year, "Year", class: "block text-sm font-bold mb-2" %>
+        <%= form.number_field :year, value: @year, class: "border p-2 rounded w-full", placeholder: "Enter Year...", min: 1900, max: Time.now.year %>
+      </div>
+    </div>
+    <div class="mb-4">
+      <%= form.label :plot, "Plot", class: "block text-sm font-bold mb-2" %>
+      <%= form.select :plot, options_for_select([['Short', 'short'], ['Full', 'full']], selected: @plot), {}, class: "border p-2 rounded w-full" %>
+    </div>
+    <div class="flex justify-center">
+      <%= form.submit "Search", class: "p-2 border rounded-md bg-gray-800 text-white cursor-pointer" %>
+    </div>
+  <% end %>
+</div>
